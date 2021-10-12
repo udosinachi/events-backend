@@ -11,8 +11,7 @@ const User = require('../models/userModel')
 //@access  Public
 
 const registerUser = asyncHandler(async (req, res) => {
-  let { email, password, passwordCheck, firstName, lastName, phoneNumber } =
-    req.body
+  let { email, password, firstName, lastName, phoneNumber } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -47,6 +46,51 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 })
 
+//@desc    Login user
+//@route   POST /api/users/login
+//@access  Public
+
+const loginUser = asyncHandler(async (req, res) => {
+  let { email, password } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (user && (await user.matchPassword(password))) {
+    res.status(201).json({
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      token: generateToken(user._id),
+      hasError: false,
+      message: 'User logged in successfully',
+    })
+  } else {
+    res.json({
+      hasError: true,
+      message: 'Wrong user details',
+    })
+  }
+})
+
+//@desc    Get user by ID
+//@route   GET /api/users/login/:id
+//@access  Public
+
+const getUserById = asyncHandler(async (req, res) => {
+  const userId = await User.findById(req.params.id)
+
+  if (userId) {
+    res.json({ userId, hasError: false })
+  } else {
+    res.json({
+      hasError: true,
+      message: "User Id doesn't exist",
+    })
+  }
+})
+
 // get users
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -59,4 +103,4 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { registerUser, getUsers }
+module.exports = { registerUser, getUsers, loginUser, getUserById }
