@@ -1,12 +1,12 @@
 {
-  "name": "polymath",
+  "name": "eventplans",
   "version": "1.0.0",
-  "description": "Buying house bit by bit",
+  "description": "Site for event planners and managers",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
-  "author": "Munachi",
+  "author": "Udosinachi",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,6 +24,6 @@
     "heroku"
   ],
   "engines": {
-    "node": "16.5.0"
+    "node": "16.11.1"
   }
 }
