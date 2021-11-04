@@ -38,6 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       phoneNumber: user.phoneNumber,
       token: generateToken(user._id),
+      image: user.image,
       hasError: false,
       message: 'User created successfully',
     })
@@ -65,6 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       phoneNumber: user.phoneNumber,
       token: generateToken(user._id),
+      image: user.image,
       hasError: false,
       message: 'User logged in successfully',
     })
