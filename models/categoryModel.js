@@ -6,6 +6,6 @@ const orderSchema = mongoose.Schema({
   },
 })
 
-const Order = mongoose.model('Order', orderSchema)
+const Category = mongoose.model('Category', orderSchema)
 
-module.exports = Order
+module.exports = Category
