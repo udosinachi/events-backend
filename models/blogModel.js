@@ -15,9 +15,6 @@ const blogSchema = mongoose.Schema(
         type: String,
       },
     ],
-    avatar: {
-      type: String,
-    },
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

@@ -1,7 +1,4 @@
-const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
-const nodemailer = require('nodemailer')
-const jwt = require('jsonwebtoken')
 
 const Category = require('../models/categoryModel')
 

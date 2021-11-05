@@ -1,7 +1,4 @@
-const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
-const nodemailer = require('nodemailer')
-const jwt = require('jsonwebtoken')
 
 const Blog = require('../models/blogModel')
 
@@ -25,7 +22,6 @@ const createBlogPost = asyncHandler(async (req, res) => {
       text: blog.text,
       blogImage: blog.blogImage,
       createdAt: blog.createdAt,
-      avatar: blog.avatar,
       hasError: false,
       message: 'Blog created successfully',
     })
