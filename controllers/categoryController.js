@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken')
 
 const Category = require('../models/categoryModel')
 
-//@desc    Register user & get token
-//@route   POST /api/users/register
+//@desc    Categories
+//@route   POST /api/category/category
 //@access  Public
 
 const createCategory = asyncHandler(async (req, res) => {

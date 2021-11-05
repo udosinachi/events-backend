@@ -38,3 +38,4 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, async (err) => {
 
 app.use('/auth/users', require('./routes/userRouter'))
 app.use('/category', require('./routes/categoryRouter'))
+app.use('/blog', require('./routes/blogRouter'))
