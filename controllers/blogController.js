@@ -13,15 +13,12 @@ const createBlogPost = asyncHandler(async (req, res) => {
     user,
     text,
     blogImage,
+    name: `${req.user.firstName} ${req.user.lastName}`,
   })
 
   if (blog) {
     res.json({
-      _id: blog._id,
-      user: blog.user,
-      text: blog.text,
-      blogImage: blog.blogImage,
-      createdAt: blog.createdAt,
+      blog,
       hasError: false,
       message: 'Blog created successfully',
     })
