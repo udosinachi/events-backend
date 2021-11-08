@@ -11,7 +11,8 @@ const User = require('../models/userModel')
 //@access  Public
 
 const registerUser = asyncHandler(async (req, res) => {
-  let { email, password, firstName, lastName, phoneNumber } = req.body
+  let { email, password, fullName, businessName, phoneNumber, category } =
+    req.body
 
   const userExists = await User.findOne({ email })
 
@@ -23,20 +24,17 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    firstName,
-    lastName,
+    fullName,
+    businessName,
     email,
     password,
     phoneNumber,
+    category,
   })
 
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
+      user,
       token: generateToken(user._id),
       image: user.image,
       hasError: false,
@@ -61,10 +59,11 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     res.status(201).json({
       _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      fullName: user.fullName,
+      businessName: user.businessName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      category: user.category,
       token: generateToken(user._id),
       image: user.image,
       hasError: false,

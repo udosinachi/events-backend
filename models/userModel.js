@@ -3,11 +3,11 @@ const bcrypt = require('bcryptjs')
 
 const userSchema = mongoose.Schema(
   {
-    firstName: {
+    fullName: {
       type: String,
       required: true,
     },
-    lastName: {
+    businessName: {
       type: String,
       required: true,
     },
@@ -26,6 +26,7 @@ const userSchema = mongoose.Schema(
     },
     category: {
       type: String,
+      required: true,
     },
     image: {
       type: String,

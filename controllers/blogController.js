@@ -7,13 +7,14 @@ const Blog = require('../models/blogModel')
 //@access  Public
 
 const createBlogPost = asyncHandler(async (req, res) => {
-  let { user, text, blogImage } = req.body
+  let { user, text, blogImage, category } = req.body
 
   const blog = await Blog.create({
     user,
     text,
     blogImage,
-    name: `${req.user.firstName} ${req.user.lastName}`,
+    category: req.user.category,
+    name: req.user.businessName,
   })
 
   if (blog) {
@@ -29,9 +30,17 @@ const createBlogPost = asyncHandler(async (req, res) => {
   }
 })
 
+const getBlogPostById = asyncHandler(async (req, res) => {
+  const blog = await Blog.findById(req.params.id)
+
+  res.json({
+    blog,
+    hasError: false,
+  })
+})
+
 const getAllBlogPost = asyncHandler(async (req, res) => {
   const blogposts = await Blog.find({})
-
   if (blogposts) {
     res.json({
       blogposts,
@@ -39,4 +48,4 @@ const getAllBlogPost = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createBlogPost, getAllBlogPost }
+module.exports = { createBlogPost, getAllBlogPost, getBlogPostById }
