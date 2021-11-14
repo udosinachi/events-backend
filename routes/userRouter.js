@@ -7,6 +7,7 @@ const {
   loginUser,
   getUserById,
 } = require('../controllers/userController')
+const { protect, admin } = require('../middleware/authMiddleware')
 
 router.route('/').get(getUsers)
 router.route('/register').post(registerUser)

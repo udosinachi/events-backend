@@ -11,8 +11,15 @@ const User = require('../models/userModel')
 //@access  Public
 
 const registerUser = asyncHandler(async (req, res) => {
-  let { email, password, fullName, businessName, phoneNumber, category } =
-    req.body
+  let {
+    email,
+    password,
+    fullName,
+    businessName,
+    phoneNumber,
+    category,
+    userText,
+  } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -30,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     phoneNumber,
     category,
+    userText,
   })
 
   if (user) {
