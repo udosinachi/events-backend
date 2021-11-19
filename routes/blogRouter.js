@@ -9,7 +9,7 @@ const {
 } = require('../controllers/blogController')
 
 router.route('/blogposts').get(getAllBlogPost)
-router.route('/blogpost').post(protect, createBlogPost)
+router.route('/blogpost').post(createBlogPost)
 router.route('/:id').get(getBlogPostById)
 
 module.exports = router
