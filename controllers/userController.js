@@ -114,4 +114,16 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { registerUser, getUsers, loginUser, getUserById }
+const classifyCategory = asyncHandler(async (req, res) => {
+  const classify = await User.find({ category: req.params.cats })
+
+  res.json({ hasError: false, classify })
+})
+
+module.exports = {
+  registerUser,
+  getUsers,
+  loginUser,
+  getUserById,
+  classifyCategory,
+}
