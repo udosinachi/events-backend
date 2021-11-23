@@ -34,6 +34,7 @@ const createBlogPost = asyncHandler(async (req, res) => {
 const getBlogPostById = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.id)
 
+  
   res.json({
     blog,
     hasError: false,
