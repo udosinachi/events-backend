@@ -120,10 +120,35 @@ const classifyCategory = asyncHandler(async (req, res) => {
   res.json({ hasError: false, classify })
 })
 
+const editUser = asyncHandler(async (req, res) => {
+  let {
+    email,
+    image,
+    fullName,
+    businessName,
+    phoneNumber,
+    category,
+    userText,
+  } = req.body
+
+  const edit = await User.findByIdAndUpdate(req.user._id, {
+    email: email ? email : req.user.email,
+    fullName: fullName ? fullName : req.user.fullName,
+    businessName: businessName ? businessName : req.user.businessName,
+    phoneNumber: phoneNumber ? phoneNumber : req.user.phoneNumber,
+    category: category ? category : req.user.category,
+    image: image ? image : req.user.image,
+    userText: userText ? userText : req.user.userText,
+  })
+
+  res.json({ hasError: false, message: 'Profile Successfully Updated', edit })
+})
+
 module.exports = {
   registerUser,
   getUsers,
   loginUser,
   getUserById,
   classifyCategory,
+  editUser,
 }

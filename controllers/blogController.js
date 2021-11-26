@@ -34,7 +34,6 @@ const createBlogPost = asyncHandler(async (req, res) => {
 const getBlogPostById = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.id)
 
-  
   res.json({
     blog,
     hasError: false,
@@ -52,18 +51,6 @@ const getAllBlogPost = asyncHandler(async (req, res) => {
 
 const getUserBlog = asyncHandler(async (req, res) => {
   const user = await Blog.find({ user: req.params.id })
-
-  // const pe = await User.find({})
-
-  // for (let i = 0; i < pe.length; i++) {
-  //   if (pe.length === 4) {
-  //     for (let j = 0; j < user.length; j++) {
-  //       await Blog.findByIdAndUpdate(user[j]._id, {
-  //         user: pe[i]._id,
-  //       })
-  //     }
-  //   }
-  // }
 
   res.json({
     user,
