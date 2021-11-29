@@ -58,9 +58,23 @@ const getUserBlog = asyncHandler(async (req, res) => {
   })
 })
 
+const deleteBlog = asyncHandler(async (req, res) => {
+  const unblog = await Blog.findById(req.params.id)
+
+  if (unblog) {
+    await unblog.remove()
+    res.json({ message: 'Post has been removed', hasError: false })
+  } else {
+    res.json({
+      hasError: true,
+    })
+  }
+})
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   getBlogPostById,
   getUserBlog,
+  deleteBlog,
 }
