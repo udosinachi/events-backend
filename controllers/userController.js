@@ -141,7 +141,17 @@ const editUser = asyncHandler(async (req, res) => {
     userText: userText ? userText : req.user.userText,
   })
 
-  res.json({ hasError: false, message: 'Profile Successfully Updated', edit })
+  res.json({
+    hasError: false,
+    message: 'Profile Successfully Updated',
+    email,
+    image,
+    fullName,
+    businessName,
+    phoneNumber,
+    category,
+    userText,
+  })
 })
 
 module.exports = {
