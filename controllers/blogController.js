@@ -71,10 +71,24 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 })
 
+const editBlogText = asyncHandler(async (req, res) => {
+  let { text } = req.body
+  const blogtext = await Blog.findByIdAndUpdate(req.params.id, {
+    text: text ? text : req.blog.text,
+  })
+
+  res.json({
+    hasError: false,
+    message: 'Post Text Successfully edited',
+    blogtext,
+  })
+})
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   getBlogPostById,
   getUserBlog,
   deleteBlog,
+  editBlogText,
 }
