@@ -121,15 +121,8 @@ const classifyCategory = asyncHandler(async (req, res) => {
 })
 
 const editUser = asyncHandler(async (req, res) => {
-  let {
-    email,
-    image,
-    fullName,
-    businessName,
-    phoneNumber,
-    category,
-    userText,
-  } = req.body
+  let { email, fullName, businessName, phoneNumber, category, userText } =
+    req.body
 
   const edit = await User.findByIdAndUpdate(req.user._id, {
     email: email ? email : req.user.email,
@@ -137,7 +130,6 @@ const editUser = asyncHandler(async (req, res) => {
     businessName: businessName ? businessName : req.user.businessName,
     phoneNumber: phoneNumber ? phoneNumber : req.user.phoneNumber,
     category: category ? category : req.user.category,
-    image: image ? image : req.user.image,
     userText: userText ? userText : req.user.userText,
   })
 
@@ -145,7 +137,6 @@ const editUser = asyncHandler(async (req, res) => {
     hasError: false,
     message: 'Profile Successfully Updated',
     email,
-    image,
     fullName,
     businessName,
     phoneNumber,
