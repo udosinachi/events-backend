@@ -43,7 +43,7 @@ const getBlogPostById = asyncHandler(async (req, res) => {
 const getAllBlogPost = asyncHandler(async (req, res) => {
   const blogposts = await Blog.find({})
   const latestposts = blogposts.reverse()
-  if (blogposts) {
+  if (latestposts) {
     res.json({
       latestposts,
     })
