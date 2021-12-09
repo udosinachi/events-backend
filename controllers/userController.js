@@ -145,6 +145,20 @@ const editUser = asyncHandler(async (req, res) => {
   })
 })
 
+const editProfileImage = asyncHandler(async (req, res) => {
+  let { image } = req.body
+
+  const editImage = await User.findByIdAndUpdate(req.user._id, {
+    image: image ? image : req.user.image,
+  })
+
+  res.json({
+    hasError: false,
+    message: 'Image Succesfully Changed',
+    image,
+  })
+})
+
 module.exports = {
   registerUser,
   getUsers,
@@ -152,4 +166,5 @@ module.exports = {
   getUserById,
   classifyCategory,
   editUser,
+  editProfileImage,
 }
