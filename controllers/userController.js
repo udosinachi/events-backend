@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const generateToken = require('../utilis/generateToken')
 const User = require('../models/userModel')
+const { passwordhtml } = require('../utilis/passwordhtml')
 
 //@desc    Register user & get token
 //@route   POST /api/users/register
@@ -105,6 +106,53 @@ const changePassword = asyncHandler(async (req, res) => {
   }
 })
 
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body
+
+  const user = await User.findOne({ email })
+  // console.log(user, email)
+
+  if (user) {
+    const token = generateToken(user._id)
+    const datas = passwordhtml(token)
+
+    var transporter = nodemailer.createTransport({
+      host: 'mail.midraconsulting.com',
+      port: 8889,
+      secure: false, // upgrade later with STARTTLS
+      auth: {
+        user: 'bobby@midraconsulting.com',
+        pass: '1nt3n@t10n@l',
+      },
+    })
+
+    let data = datas
+
+    const mailOptions = {
+      from: 'bobby@midraconsulting.com', // sender address
+      to: email, // list of receivers
+      subject: 'test mail', // Subject line
+      html: data, // plain text body
+    }
+
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) console.log(err)
+      else console.log(info)
+    })
+    res.send({
+      hasError: false,
+      message: 'please check your email for reset link',
+    })
+  } else {
+    res.json({
+      hasError: false,
+      message: 'Password Successfully Changed',
+    })
+  }
+
+  // const token = generateToken(user._id)
+})
+
 //@desc    Get user by ID
 //@route   GET /api/users/login/:id
 //@access  Public
@@ -188,4 +236,5 @@ module.exports = {
   editUser,
   editProfileImage,
   changePassword,
+  forgotPassword,
 }

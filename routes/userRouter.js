@@ -10,6 +10,7 @@ const {
   editUser,
   editProfileImage,
   changePassword,
+  forgotPassword,
 } = require('../controllers/userController')
 const { protect, admin } = require('../middleware/authMiddleware')
 
@@ -21,5 +22,6 @@ router.route('/login').post(loginUser)
 router.route('/edit').post(protect, editUser)
 router.route('/editimage').post(protect, editProfileImage)
 router.route('/changepassword').post(protect, changePassword)
+router.route('/forgotpassword/').post(forgotPassword)
 
 module.exports = router
