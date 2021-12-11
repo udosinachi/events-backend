@@ -9,6 +9,7 @@ const {
   classifyCategory,
   editUser,
   editProfileImage,
+  changePassword,
 } = require('../controllers/userController')
 const { protect, admin } = require('../middleware/authMiddleware')
 
@@ -19,5 +20,6 @@ router.route('/register').post(registerUser)
 router.route('/login').post(loginUser)
 router.route('/edit').post(protect, editUser)
 router.route('/editimage').post(protect, editProfileImage)
+router.route('/changepassword').post(protect, changePassword)
 
 module.exports = router

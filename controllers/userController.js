@@ -85,6 +85,26 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 })
 
+const changePassword = asyncHandler(async (req, res) => {
+  let { oldPassword, password } = req.body
+
+  const user = await User.findOne({ email: req.user.email })
+
+  if (user && (await user.matchPassword(oldPassword))) {
+    const salt = await bcrypt.genSalt(10)
+    let newPassword = await bcrypt.hash(password, salt)
+
+    await User.findByIdAndUpdate(user._id, {
+      password: newPassword,
+    })
+  } else {
+    res.json({
+      hasError: false,
+      message: 'Password Changed Successfully',
+    })
+  }
+})
+
 //@desc    Get user by ID
 //@route   GET /api/users/login/:id
 //@access  Public
@@ -167,4 +187,5 @@ module.exports = {
   classifyCategory,
   editUser,
   editProfileImage,
+  changePassword,
 }
