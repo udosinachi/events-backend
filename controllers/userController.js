@@ -106,6 +106,17 @@ const changePassword = asyncHandler(async (req, res) => {
   }
 })
 
+const resetPassword = asyncHandler(async (req, res) => {
+  let { id, password } = req.body
+
+  const salt = await bcrypt.genSalt(10)
+  let newPassword = await bcrypt.hash(password, salt)
+
+  const user = await User.findByIdAndUpdate(id, { password: newPassword })
+
+  res.json({ hasError: false, message: 'New Password has been Created' })
+})
+
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body
 
@@ -146,11 +157,9 @@ const forgotPassword = asyncHandler(async (req, res) => {
   } else {
     res.json({
       hasError: false,
-      message: 'Password Successfully Changed',
+      message: 'Reset Link has been successfully sent',
     })
   }
-
-  // const token = generateToken(user._id)
 })
 
 //@desc    Get user by ID
@@ -237,4 +246,5 @@ module.exports = {
   editProfileImage,
   changePassword,
   forgotPassword,
+  resetPassword,
 }
