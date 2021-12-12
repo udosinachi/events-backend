@@ -107,14 +107,18 @@ const changePassword = asyncHandler(async (req, res) => {
 })
 
 const resetPassword = asyncHandler(async (req, res) => {
-  let { id, password } = req.body
+  let { token, password } = req.body
 
-  const salt = await bcrypt.genSalt(10)
-  let newPassword = await bcrypt.hash(password, salt)
+  if (token) {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-  const user = await User.findByIdAndUpdate(id, { password: newPassword })
+    const salt = await bcrypt.genSalt(10)
+    let newPassword = await bcrypt.hash(password, salt)
 
-  res.json({ hasError: false, message: 'New Password has been Created' })
+    await User.findByIdAndUpdate(decoded.id, { password: newPassword })
+
+    res.json({ hasError: false, message: 'New Password has been Created' })
+  }
 })
 
 const forgotPassword = asyncHandler(async (req, res) => {
