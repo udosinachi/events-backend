@@ -15,7 +15,7 @@ const {
 } = require('../controllers/userController')
 const { protect, admin } = require('../middleware/authMiddleware')
 
-router.route('/').get(getUsers)
+router.route('/').get(admin, getUsers)
 router.route('/:id').get(getUserById)
 router.route('/category/:cats').get(classifyCategory)
 router.route('/register').post(registerUser)
