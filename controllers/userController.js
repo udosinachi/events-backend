@@ -20,6 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
     phoneNumber,
     category,
     userText,
+    isAdmin,
   } = req.body
 
   const userExists = await User.findOne({ email })
@@ -39,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
     phoneNumber,
     category,
     userText,
+    isAdmin,
   })
 
   if (user) {
@@ -76,6 +78,7 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
       image: user.image,
       hasError: false,
+      isAdmin: user.isAdmin,
       message: 'User logged in successfully',
     })
   } else {
