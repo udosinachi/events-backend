@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const generateToken = require('../utilis/generateToken')
 const User = require('../models/userModel')
 const { passwordhtml } = require('../utilis/passwordhtml')
+const { findByIdAndDelete } = require('../models/userModel')
 
 //@desc    Register user & get token
 //@route   POST /api/users/register
@@ -247,6 +248,19 @@ const editProfileImage = asyncHandler(async (req, res) => {
   })
 })
 
+const deleteUser = asyncHandler(async (req, res) => {
+  const userDelete = await User.findById(req.params.id)
+
+  if (userDelete) {
+    await userDelete.remove()
+    res.json({ message: 'User has been deleted', hasError: false })
+  } else {
+    res.json({
+      hasError: true,
+    })
+  }
+})
+
 module.exports = {
   registerUser,
   getUsers,
@@ -258,4 +272,5 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  deleteUser,
 }

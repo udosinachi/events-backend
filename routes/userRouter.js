@@ -12,6 +12,7 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
+  deleteUser,
 } = require('../controllers/userController')
 const { protect, admin } = require('../middleware/authMiddleware')
 
@@ -25,5 +26,6 @@ router.route('/editimage').post(protect, editProfileImage)
 router.route('/changepassword').post(protect, changePassword)
 router.route('/forgotpassword').post(forgotPassword)
 router.route('/resetpassword').post(resetPassword)
+router.route('/deleteuser/:id').delete(deleteUser)
 
 module.exports = router
