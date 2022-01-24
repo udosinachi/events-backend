@@ -191,6 +191,10 @@ const getUserById = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({})
 
+  // for (let i = 0; i < users.length; i++) {
+  //   await User.findByIdAndUpdate(users[i]._id, { isAdmin: false })
+  // }
+
   if (users) {
     res.json({
       users,
