@@ -195,10 +195,11 @@ const getUsers = asyncHandler(async (req, res) => {
   // for (let i = 0; i < users.length; i++) {
   //   await User.findByIdAndUpdate(users[i]._id, { isAdmin: false })
   // }
+  const latestUsers = users.reverse()
 
   if (users) {
     res.json({
-      users,
+      latestUsers,
     })
   }
 })
