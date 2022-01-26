@@ -250,14 +250,20 @@ const editProfileImage = asyncHandler(async (req, res) => {
 })
 
 const makeAdmin = asyncHandler(async (req, res) => {
-  await User.findByIdAndUpdate(req.params.id, {
+  const admining = await User.findByIdAndUpdate(req.params.id, {
     isAdmin: true,
   })
-
-  res.json({
-    hasError: false,
-    message: 'User is now an Admin',
-  })
+  if (admining) {
+    res.json({
+      hasError: false,
+      message: 'User is now an Admin',
+      admining,
+    })
+  } else {
+    res.json({
+      hasError: true,
+    })
+  }
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
