@@ -266,6 +266,23 @@ const makeAdmin = asyncHandler(async (req, res) => {
   }
 })
 
+const removeAdmin = asyncHandler(async (req, res) => {
+  const admining = await User.findByIdAndUpdate(req.params.id, {
+    isAdmin: false,
+  })
+  if (admining) {
+    res.json({
+      hasError: false,
+      message: 'Admin Role has been Removed',
+      admining,
+    })
+  } else {
+    res.json({
+      hasError: true,
+    })
+  }
+})
+
 const deleteUser = asyncHandler(async (req, res) => {
   const userDelete = await User.findById(req.params.id)
 
@@ -292,4 +309,5 @@ module.exports = {
   resetPassword,
   deleteUser,
   makeAdmin,
+  removeAdmin,
 }
