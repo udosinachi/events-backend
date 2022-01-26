@@ -249,6 +249,17 @@ const editProfileImage = asyncHandler(async (req, res) => {
   })
 })
 
+const makeAdmin = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(req.params.id, {
+    isAdmin: true,
+  })
+
+  res.json({
+    hasError: false,
+    message: 'User is now an Admin',
+  })
+})
+
 const deleteUser = asyncHandler(async (req, res) => {
   const userDelete = await User.findById(req.params.id)
 
@@ -274,4 +285,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   deleteUser,
+  makeAdmin,
 }
