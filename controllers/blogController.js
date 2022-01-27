@@ -77,7 +77,10 @@ const adminDeleteBlog = asyncHandler(async (req, res) => {
 
   if (adminDeleting) {
     await adminDeleting.remove()
-    res.json({ message: 'Post has been deleted by an Admin', hasError: false })
+    res.json({
+      message: 'post has been deleted',
+      hasError: 'false',
+    })
   } else {
     res.json({
       hasError: true,

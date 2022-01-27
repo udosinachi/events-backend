@@ -18,6 +18,6 @@ router.route('/user/:id').get(getUserBlog)
 router.route('/edit/:id').post(protect, editBlogText)
 router.route('/blogpost').post(protect, createBlogPost)
 router.route('/delete/:id').delete(protect, deleteBlog)
-router.route('/admindelete/:id').delete(admin, protect, adminDeleteBlog)
+router.route('/admindelete/:id').delete(protect, admin, adminDeleteBlog)
 
 module.exports = router
