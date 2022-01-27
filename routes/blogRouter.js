@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const cors = require('cors')
-const { protect } = require('../middleware/authMiddleware')
+const { admin, protect } = require('../middleware/authMiddleware')
 
 const {
   createBlogPost,
@@ -17,5 +17,6 @@ router.route('/user/:id').get(getUserBlog)
 router.route('/edit/:id').post(protect, editBlogText)
 router.route('/blogpost').post(protect, createBlogPost)
 router.route('/delete/:id').delete(protect, deleteBlog)
+router.route('/admindelete/:id').delete(admin, protect, deleteBlog)
 
 module.exports = router

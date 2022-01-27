@@ -72,6 +72,19 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 })
 
+const adminDeleteBlog = asyncHandler(async (req, res) => {
+  const adminDeleting = await Blog.findById(req.params.id)
+
+  if (adminDeleting) {
+    await adminDeleting.remove()
+    res.json({ message: 'Post has been deleted by an Admin', hasError: false })
+  } else {
+    res.json({
+      hasError: true,
+    })
+  }
+})
+
 const editBlogText = asyncHandler(async (req, res) => {
   let { text } = req.body
   const blogtext = await Blog.findByIdAndUpdate(req.params.id, {
@@ -91,5 +104,6 @@ module.exports = {
   getBlogPostById,
   getUserBlog,
   deleteBlog,
+  adminDeleteBlog,
   editBlogText,
 }
